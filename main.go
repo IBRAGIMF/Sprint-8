@@ -37,7 +37,6 @@ func (s ParcelService) Exec() error {
 	}
 	defer db.Close()
 	return nil
-
 }
 
 func (s ParcelService) Register(client int, address string) (Parcel, error) {

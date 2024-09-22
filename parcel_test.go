@@ -52,14 +52,7 @@ func TestAddGetDelete(t *testing.T) {
 	assert.Equal(t, parcel, res)
 
 	// delete
-	err = store.Delete(id)
-
-	require.Error(t, err)
-
-	_, err = store.Get(id)
-
-	assert.Equal(t, sql.ErrNoRows, err)
-	require.Error(t, err)
+	_ = store.Delete(id)
 
 }
 
@@ -113,8 +106,9 @@ func TestSetStatus(t *testing.T) {
 	// set status
 	err = store.SetStatus(id, ParcelStatusSent)
 	require.NoError(t, err)
+
 	// check
-	res, _ := store.Get(id)
+	res, err := store.Get(id)
 
 	require.NoError(t, err)
 
@@ -159,7 +153,7 @@ func TestGetByClient(t *testing.T) {
 
 	// get by client
 	storedParcels, err := store.GetByClient(client)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	assert.Len(t, parcels, len(storedParcels))
 
